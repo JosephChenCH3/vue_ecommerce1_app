@@ -1,0 +1,51 @@
+.top {
+    position: fixed;
+    bottom: 0px;
+    right: calc(50% - 590px);
+    transition: all 1s ease-in-out;
+    opacity: 0;
+    filter:alpha(opacity=0);
+}
+
+.coupon {
+    position: fixed;
+    bottom: 0px;
+    z-index: 15;
+    left: calc(50% - 590px);
+    transition: all 1s ease-in-out;
+}
+
+.top_show {
+    bottom: 150px;
+    opacity: 1.0;
+    filter:alpha(opacity=100);
+}
+
+.btn_shake {
+    animation: shake 0.5s infinite alternate;
+}
+
+@keyframes shake {
+    0% {transform: translate(-10px, 0);}
+    100% {transform: translate(10px, 0);}
+}
+
+.btn_shake:hover {
+    animation: none;
+}
+
+.mousePointer {
+    cursor: pointer;
+}
+
+/*-----media max-width: 1199.98-----*/
+@media (max-width: 1199.98px) {
+.top {
+    right: 15px;
+}
+
+.coupon {
+    left: 15px;
+}
+
+}

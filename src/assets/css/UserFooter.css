@@ -1,0 +1,9 @@
+.foot-item {
+    color: #212529;
+}
+.foot-item:hover {
+    text-decoration:none;
+}
+.router-link-active {
+    color: #4d3126;
+}

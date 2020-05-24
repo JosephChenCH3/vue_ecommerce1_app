@@ -1,0 +1,31 @@
+.lativbg {
+	background: #EFEBE6;
+}
+
+.purplepink {
+	background: #e83e8c;
+}
+
+.pink {
+	background: #FFC0CB
+}
+
+.light300 {
+    color:#dee2e6
+}
+
+.light600 {
+    color:#6c757d
+}
+
+.light700 {
+    color:#495057	
+}
+
+.mousePointer {
+    cursor: pointer;
+}
+
+.hideobj-md {
+    display:none;
+}

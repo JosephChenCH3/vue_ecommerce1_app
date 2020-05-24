@@ -1,0 +1,46 @@
+.dropdown-search-menu {
+    min-width: 100px;
+/*    right: 140px;*/
+}
+
+.dropdown-search-item:active {
+    color: #212529;
+    background-color: #FFF;
+}
+
+.input-width {
+	border-color: #6c757d;
+}
+
+@media (max-width: 1199.98px) {
+.input-width {
+    /*width: 100px;*/
+}
+}
+
+@media (max-width: 991.98px) {
+.input-width {
+    width: 190px;
+}
+}
+
+@media (max-width: 575.98px) {
+.input-width {
+    width: 120px;
+}
+.dropdown-search-item {
+	padding: 0;
+}
+}
+
+@media (max-width: 499.98px) {
+.input-width {
+    width: 90px;
+}
+}
+
+@media (max-width: 349.98px) {
+.input-width {
+    width: 60px;
+}
+}
