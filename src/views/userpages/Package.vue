@@ -2,8 +2,9 @@
   <div>
     <div class="row mt-4">
       <div class="col-md-10 mr-auto ml-auto indexCard">
-        <div class="card my-3 py-5 px-5">
+        <div class="card my-3 py-5 px-3">
           <h4 class="text-center">運送方式</h4>
+          <hr>
           <h6>Q1.可選擇的配送方式有那些？</h6>
           <p>線上刷卡</p>
           <p>貨到付款</p>
@@ -28,10 +29,25 @@
           <p>線上刷卡</p>
           <p>貨到付款</p>
           <p>超商取貨付款</p>
-          <hr>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+
+export default {
+  components: {
+
+  },
+  data () {
+    return {
+
+    }
+  },
+  created () {
+    const vm = this
+    vm.$bus.$emit('title:push', '運送方式')
+  }
+}
+</script>

@@ -1,17 +1,21 @@
 .message-alert {
   position: fixed;
   min-width: 10%;
-/*  top: 56px;*/
-  bottom: 10px;
-  right: 20px;
+  top: 65px;
+  /* bottom: 10px; */
+  right: -5px;
   z-index: 1100;
-  transition: all 6s cubic-bezier(1, 0.08, 0, 1);
-  animation: arrowef 12s infinite ease-in-out;
+  /* transition: all 6s cubic-bezier(1, 0.08, 0, 1); */
+  /* animation: arrowef 3s infinite ease-in-out; */
 }
 
 @keyframes arrowef {
-  0%   {bottom: 10px;}
-  100% {bottom: 150px;}
+  0%   {right: -50%;}
+  100% {right: -5px;}
+}
+
+.alert {
+  border-radius: 25px 0 0 25px;
 }
 
 .alert-success {
@@ -19,23 +23,24 @@
 /*  background-color: #d4edda;*/
   border-color: #999;
   background: white \9;
-  filter: alpha(opacity=65) \9;
-  background-color: rgba(239, 235, 230, .65);
+  filter: alpha(opacity=85) \9;
+  background-color: rgba(239, 235, 230, .85);
 /*  opacity: 0.65 !important;*/
 }
 .alert-danger {
   color: #fff;
   border-color: #dc3545;
   background: white \9;
-  filter: alpha(opacity=65) \9;
-  background-color: rgba(220, 53, 69, .65);
+  filter: alpha(opacity=85) \9;
+  background-color: rgba(220, 53, 69, .85);
 /*  opacity: 0.65 !important;*/
 }
 .alert-warning {
-  color: #444;
-  border-color: #ffc107;
+  color: #ffffff;
+  border-color: #ffffff;
+  /* background-color: #FAD0D0; */
   background: white \9;
-  filter: alpha(opacity=65) \9;
-  background-color: rgba(255, 193, 7, .65);
+  filter: alpha(opacity=85) \9;
+  background-color: rgba(250, 208, 208, .85);
 /*  opacity: 0.65 !important;*/
 }

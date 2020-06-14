@@ -1,7 +1,8 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-light navbar-scroll fixed-top shadow-sm">
-      <div class="container">
+      <span class="title">{{appHeaderProps}}</span>
+      <!-- <div class="container">
         <router-link class="navbar-brand" to="/">
           <img height="50" class="" src="@/assets/logo2.png" @click="btnStatus = '/main'">
         </router-link>
@@ -37,45 +38,76 @@
             </li>
           </ul>
         </div>
-      </div>
+      </div> -->
+      <!-- <div class="search-icon top15" @click="openSearchModal"><i class="fas fa-search fa-lg"></i></div> -->
+      <div class="search-icon top15" @click="openSearch"><i class="fas fa-search fa-lg"></i></div>
     </nav>
-    <SearchInput class="set-position-si top35"></SearchInput>
-    <CartAndPay class="set-position-cp top35"></CartAndPay>
+    <!-- <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+    <SearchModal @closeSearch="closeSearch" :searchStyleProps="searchStyleProps"></SearchModal>
+    <!-- </div> -->
+    <!-- <SearchInput class="set-position-si top15"></SearchInput> -->
+    <!-- <CartAndPay class="set-position-cp top15"></CartAndPay> -->
   </div>
 </template>
 <script>
 import $ from 'jquery' // Import js file
-import SearchInput from './SearchInput'
-import CartAndPay from './CartAndPay'
+import SearchModal from './SearchModal'
+// import SearchInput from './SearchInput'
+// import CartAndPay from './CartAndPay'
 
 export default {
   components: {
-    SearchInput,
-    CartAndPay
+    // SearchInput
+    // CartAndPay
+    SearchModal
+  },
+  name: 'AppHeader',
+  props: {
+    appHeaderProps: {
+      type: String,
+      deafult: ''
+    }
   },
   data () {
     return {
       btnStatus: '',
       navCollapseShadowStatus: false,
-      cartStatus: ''
+      cartStatus: '',
+      searchOpenStatus: false,
+      searchStyleProps: false
     }
   },
   methods: {
-    navCollapseShadow () {
-      this.navCollapseShadowStatus = !this.navCollapseShadowStatus
-      if (this.navCollapseShadowStatus) {
-        $('.navbar-collapse').addClass('shadow-sm')
-      } else {
-        $('.navbar-collapse').removeClass('shadow-sm')
-      }
+    // navCollapseShadow () {
+    //   this.navCollapseShadowStatus = !this.navCollapseShadowStatus
+    //   if (this.navCollapseShadowStatus) {
+    //     $('.navbar-collapse').addClass('shadow-sm')
+    //   } else {
+    //     $('.navbar-collapse').removeClass('shadow-sm')
+    //   }
+    // },
+    openSearch () {
+      // this.searchOpenStatus = true
+      this.searchStyleProps = true
     },
-    setPositionSI () {
-      if (this.cartStatus !== 0) {
-        $('.set-position-si').addClass('right100')
-      } else {
-        $('.set-position-si').removeClass('right100')
-      }
+    closeSearch () {
+      // this.searchOpenStatus = false
+      this.searchStyleProps = false
+    },
+    openSearchModal () {
+      $('#searchModal').modal('show')
     }
+    // closeSearchModal () {
+    //   console.log('sdggsdger')
+    //   $('#searchModal').modal('hide')
+    // }
+    // setPositionSI () {
+    //   if (this.cartStatus !== 0) {
+    //     $('.set-position-si').addClass('right100')
+    //   } else {
+    //     $('.set-position-si').removeClass('right100')
+    //   }
+    // }
   },
   computed: {
 
@@ -87,7 +119,7 @@ export default {
       $('#navbarSupportedContent').collapse('hide')
     },
     cartStatus () {
-      this.setPositionSI()
+      // this.setPositionSI()
     }
   },
   created () {
@@ -111,27 +143,27 @@ export default {
     vm.$bus.$on('navbarItemSeleted', () => {
       vm.btnStatus = ''
     })
-    $(window).bind('scroll resize', function () {
-      const vm = $(this)
-      var vmTop = vm.scrollTop()
-      if (vmTop > 150) {
-        $('.navbar-scroll').addClass('navbar-addStyle')
-        $('.set-position-si').removeClass('top35')
-        $('.set-position-cp').removeClass('top35')
-        $('.set-position-si').addClass('top20')
-        $('.set-position-cp').addClass('top20')
-      } else {
-        $('.navbar-scroll').removeClass('navbar-addStyle')
-        $('.set-position-si').removeClass('top20')
-        $('.set-position-cp').removeClass('top20')
-        $('.set-position-si').addClass('top35')
-        $('.set-position-cp').addClass('top35')
-      }
-    }).scroll()
+    // $(window).bind('scroll resize', function () {
+    //   const vm = $(this)
+    //   var vmTop = vm.scrollTop()
+    //   if (vmTop > 50) {
+    //     $('.navbar-scroll').addClass('navbar-addStyle')
+    //     $('.set-position-si').removeClass('top35')
+    //     $('.set-position-cp').removeClass('top35')
+    //     $('.set-position-si').addClass('top20')
+    //     $('.set-position-cp').addClass('top20')
+    //   } else {
+    //     $('.navbar-scroll').removeClass('navbar-addStyle')
+    //     $('.set-position-si').removeClass('top20')
+    //     $('.set-position-cp').removeClass('top20')
+    //     $('.set-position-si').addClass('top35')
+    //     $('.set-position-cp').addClass('top35')
+    //   }
+    // }).scroll()
     // $('.carousel').carousel();
   },
   mounted () {
-    this.setPositionSI()
+    // this.setPositionSI()
   }
 }
 

@@ -34,10 +34,10 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
-    <div class="row mt-4">
+    <div class="row mt-3">
       <div class="card-columns">
-        <div class="col indexCard" v-for="(item, i) in indexPromoImg" :key="`${item.value}${i}`">
-          <div class="card my-3 mousePointer" @click="goToSearch(item)">
+        <div class="col mx-0 px-1 indexCard" v-for="(item, i) in indexPromoImg" :key="`${item.value}${i}`">
+          <div class="card mousePointer" @click="goToSearch(item)">
             <img :src="item.imgUrl" class="card-img-top" alt="...">
           </div>
         </div>
@@ -85,7 +85,8 @@ export default {
     }
   },
   created () {
-
+    const vm = this
+    vm.$bus.$emit('title:push', '首頁')
   },
   mounted () {
     $('#promoModal').modal('show')
@@ -93,3 +94,18 @@ export default {
 }
 
 </script>
+
+<style lang="scss" scoped>
+.card-columns {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+    -webkit-column-gap: 0rem;
+    -moz-column-gap: 0rem;
+    column-gap: 0rem;
+    // orphans: 1;
+    // widows: 1;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+</style>

@@ -40,6 +40,7 @@ export default {
       setTimeout(() => {
         vm.messages.forEach((item, i) => {
           if (item.timestamp === timestamp) {
+            item.status = ''
             vm.messages.splice(i, 1)
           }
         })

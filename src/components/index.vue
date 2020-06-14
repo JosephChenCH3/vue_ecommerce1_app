@@ -1,9 +1,9 @@
 <template>
   <div>
-    <UserNavbar></UserNavbar>
+    <UserNavbar :appHeaderProps="appHeaderProps"></UserNavbar>
       <Alert></Alert>
       <div class="container">
-        <div style="height: 150px"></div>
+        <div style="height: 80px"></div>
         <div id="v-content" v-bind:style="{minHeight: Height+'px'}">
           <!-- <router-view :key="$route.path"></router-view> -->
           <router-view></router-view>
@@ -12,33 +12,39 @@
           <img width="31" height="49" src="@/assets/icon_top.png" alt=""/>
         </div>
         <div class="coupon mousePointer btn_shake" @click="openCouponModal">
-          <img width="100" height="100" src="@/assets/Coupon-High-Quality-PNG.png" alt=""/>
+          <img width="65" height="65" src="@/assets/Coupon-High-Quality-PNG.png" alt=""/>
         </div>
+        <div style="height: 70px"></div>
       </div>
     <div class="modal fade" id="promoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <CouponModal></CouponModal>
     </div>
-    <UserFooter></UserFooter>
+    <!-- <UserFooter></UserFooter> -->
+    <BtnFooter class="footer-fixed"></BtnFooter>
     </div>
 </template>
 
 <script>
 import $ from 'jquery' // Import js file
 import UserNavbar from './UserNavbar'
-import UserFooter from './UserFooter'
+// import UserFooter from './UserFooter'
+import BtnFooter from './BtnFooter'
 import Alert from './AlertMessage'
 import CouponModal from './CouponModal'
 
 export default {
   components: {
     UserNavbar,
-    UserFooter,
+    // UserFooter,
+    BtnFooter,
     CouponModal,
     Alert
   },
   data () {
     return {
-      Height: 0
+      Height: 0,
+      appHeaderProps: '',
+      title: ''
     }
   },
   methods: {
@@ -50,8 +56,16 @@ export default {
       $('#promoModal').modal('show')
     }
   },
+  watch: {
+    title () {
+      this.appHeaderProps = this.title
+    }
+  },
   created () {
-
+    const vm = this
+    vm.$bus.$on('title:push', (title) => {
+      vm.title = title
+    })
   },
   mounted () {
     $(window).bind('scroll resize', function () {

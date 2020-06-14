@@ -9,20 +9,31 @@
 
 .coupon {
     position: fixed;
-    bottom: 0px;
+    bottom: 80px;
     z-index: 15;
     left: calc(50% - 590px);
     transition: all 1s ease-in-out;
 }
 
 .top_show {
-    bottom: 150px;
+    bottom: 100px;
     opacity: 1.0;
     filter:alpha(opacity=100);
 }
 
 .btn_shake {
     animation: shake 0.5s infinite alternate;
+}
+
+.footer-fixed {
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    /* background-color: #FAD0D0; */
+    background: white \9;
+    filter: alpha(opacity=100) \9;
+    background-color: rgba(239, 235, 230, 1);
 }
 
 @keyframes shake {

@@ -5,7 +5,7 @@
       <div class="h5 text-danger">購物清單中無任何商品</div>
       <router-link to="/">返回首頁</router-link>
     </div>
-    <div class="my-5 container col-lg-6" v-if="carts.total != 0">
+    <div class="my-5" v-if="carts.total != 0">
       <div class="card border-0 shadow-sm">
         <div class="pt-3" style="height: 25px; background-size: cover; background-position: center">
           <h5 class="text-dark text-center">購物清單</h5>
@@ -13,11 +13,11 @@
         <div class="card-body">
           <table class="table">
             <thead>
-              <td>品名</td>
-              <td width="70">數量</td>
-              <td width="80">單價</td>
-              <td width="80">小計</td>
-              <td width="50"></td>
+              <td width="110">品名</td>
+              <td style="text-align:center">數量</td>
+              <td vwidth="50" style="text-align:center">單價</td>
+              <td width="55" style="text-align:center">小計</td>
+              <td></td>
             </thead>
             <tbody>
               <tr v-for="item in carts.carts" :key="item.id">
@@ -25,9 +25,9 @@
                   {{ item.product.title }}
                   <div class="text-success" v-if="item.coupon">已套用優惠券</div>
                 </td>
-                <td class="align-middle">{{ item.qty }} / 件</td>
-                <td class="align-middle">{{ item.product.price | currency }}</td>
-                <td class="align-middle">{{ item.product.price * item.qty | currency }}</td>
+                <td style="text-align:center" class="align-middle">{{ item.qty }}</td>
+                <td style="text-align:right" class="align-middle">{{ item.product.price | currency }}</td>
+                <td style="text-align:right" class="align-middle">{{ item.product.price * item.qty | currency }}</td>
                 <td class="align-middle">
                   <button @click.prevent="removeCartItem(item)" class="btn btn-outline-danger">
                     <i v-if="status.itemId !== item.id" class="far fa-trash-alt"></i>
@@ -393,3 +393,10 @@ export default {
 }
 
 </script>
+
+<style lang="scss" scoped>
+td {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+</style>

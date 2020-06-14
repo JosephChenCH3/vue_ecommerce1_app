@@ -2,8 +2,12 @@
   <div>
     <loading :active.sync="isLoading"></loading>
     <div class="row">
-      <div class="sidebar-sticky col-md-2 col-sm-12 col-xs-12 make-me-sticky accordion mousePointer" id="sidebar">
-        <div class="col-md-12 col-sm-4 col-xs-4 mb-2 hideobj" v-for="itemt in getTypeItem" :key="itemt.id">
+      <div
+        class="sidebar-sticky col-md-2 col-sm-12 col-xs-12 make-me-sticky accordion mousePointer"
+        id="sidebar"
+        v-if="showTab"
+      >
+        <!-- <div class="col-md-12 col-sm-4 col-xs-4 mb-2 hideobj" v-for="itemt in getTypeItem" :key="itemt.id">
           <div class="collapsed" data-toggle="collapse" :data-target="`#${itemt.id}`" aria-expanded="true" :aria-controls="itemt.id">
               <i class="fas fa-tshirt light300 px-1"></i>
               <span class="text-muted">{{ itemt.type }}</span>
@@ -25,6 +29,34 @@
               </option>
             </optgroup>
           </select>
+        </div> -->
+
+        <div class="product-tab container">
+          <div class="product-tab-item" :class="{'selected': btnStatus == 'women'}">
+            <router-link class="product-tab-link" :class="{'link-selected': btnStatus == 'women'}" to="/category/women">
+              WOMEN
+            </router-link>
+          </div>
+          <div class="product-tab-item" :class="{'selected': btnStatus == 'men'}">
+            <router-link class="product-tab-link" :class="{'link-selected': btnStatus == 'men'}" to="/category/men">
+              MEN
+            </router-link>
+          </div>
+          <div class="product-tab-item" :class="{'selected': btnStatus == 'kids'}">
+            <router-link class="product-tab-link" :class="{'link-selected': btnStatus == 'kids'}" to="/category/kids">
+              KIDS
+            </router-link>
+          </div>
+          <div class="product-tab-item" :class="{'selected': btnStatus == 'baby'}">
+            <router-link class="product-tab-link" :class="{'link-selected': btnStatus == 'baby'}" to="/category/baby">
+              BABY
+            </router-link>
+          </div>
+          <div class="product-tab-item" :class="{'selected': btnStatus == 'sports'}">
+            <router-link class="product-tab-link" :class="{'link-selected': btnStatus == 'sports'}" to="/category/sports">
+              SPORTS
+            </router-link>
+          </div>
         </div>
       </div>
       <div class="col-md-10 col-sm-12 px-3 ml-auto">
@@ -33,29 +65,29 @@
           <img v-if="currentPath.name == 'Search'" src="@/assets/categorypic/search.jpg" class="card-img-top" alt="...">
         </div>
         <div class="h4" style="margin-bottom: 30px;" v-if="currentPath.name == 'Search'">
-          搜尋結果：
-          <span v-if="products.length ==0">無此商品</span>
+          搜尋商品：{{ searchTitle }}
+          <span v-if="products.length == 0">無此商品</span>
         </div>
         <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6" v-for="item in productsInfiniteScroll" :key="item.id" style="margin-bottom: 30px;">
+          <div class="col-6" v-for="item in productsInfiniteScroll" :key="item.id" style="margin-bottom: 30px;">
             <div class="card shadow-sm border-2">
               <div class="image-rwd mousePointer" :style="{ backgroundImage: `url(${ item.imageUrl })` }" @click="goProductDetail(item)"></div>
               <div class="card-body">
-                <div class="text-dark text-center mousePointer" style="height: 42px" @click="goProductDetail(item)">
+                <div class="text-dark text-center mousePointer product-item-title" style="height: 42px" @click="goProductDetail(item)">
                   <span class="badge badge-pill ml-2 text-white bg-danger" v-if="item.stock < 5">熱銷</span>
                   {{ item.title }}
                 </div>
                 <div class="text-center mb-2">
                   <div class="d-inline" v-if="!item.price">{{ item.origin_price | currency }}</div>
                   <del class="d-inline" v-if="item.price">{{ item.origin_price | currency}}</del>
-                  <div class="d-inline ml-2" :class="{ 'text-danger': item.origin_price }" v-if="item.price">NT{{ item.price | currency}}</div>
+                  <div class="d-inline ml-2" :class="{ 'text-danger': item.origin_price }" v-if="item.price">{{ item.price | currency}}</div>
                 </div>
                 <div class="text-center">
                   <button type="button" class="btn btn-outline-danger btn-sm col-6" v-if="item.stock != 0" @click.prevent="addCartToLS(item)">
                     <i class="fas fa-spinner fa-pulse" v-if="status.cartId == item.id"></i>
                     <i class="fas fa-cart-plus" v-if="status.cartId != item.id"></i>
                   </button>
-                  <button type="button" class="btn btn-outline-danger btn-sm col-6" v-if="item.stock == 0">
+                  <button type="button" class="btn btn-outline-danger btn-sm col-10" v-if="item.stock == 0">
                     已售完
                   </button>
                 </div>
@@ -90,7 +122,10 @@ export default {
         loading: false,
         cartId: ''
       },
-      cartArrayToLS: []
+      cartArrayToLS: [],
+      btnStatus: '',
+      searchTitle: '',
+      showTab: true
     }
   },
   methods: {
@@ -184,7 +219,7 @@ export default {
         vm.cartArrayToLS.push(cart)
         localStorage.setItem('Cart', JSON.stringify(vm.cartArrayToLS))
         vm.$bus.$emit('getCartLS:push')
-        vm.$bus.$emit('cartStatus:push', 1)// 讓Search Input判斷是否位移
+        // vm.$bus.$emit('cartStatus:push', 1)// 讓Search Input判斷是否位移
         vm.$bus.$emit('message:push', `已加入購物車`, 'success')
         hadProduct = false
         vm.status.cartId = ''
@@ -250,6 +285,8 @@ export default {
       vm.getCategory()
       vm.isLoading = false
       // vm.$store.state.isLoading = false
+      this.btnStatus = this.$route.params.productCategory
+      this.searchTitle = this.currentPath.params.searchStr
     }
   },
   computed: {
@@ -267,14 +304,22 @@ export default {
   },
   created () {
     this.currentPath = this.$route
+    this.searchTitle = this.currentPath.params.searchStr
     this.getProducts()
+    const value = this.$router.history.current.path
+    this.btnStatus = value.split('/category/').join('')
+    if (value.split('/')[1] === 'search') {
+      this.showTab = false
+    }
+    const vm = this
+    vm.$bus.$emit('title:push', '商品目錄')
   },
   mounted () {
-    const vm = this
-    $('#inputGroupSelect01').change(() => {
-      let value = $('select option:selected').children('a').contents()[0].nodeValue
-      vm.getSeries(value)
-    })
+    // const vm = this
+    // $('#inputGroupSelect01').change(() => {
+    //   let value = $('select option:selected').children('a').contents()[0].nodeValue
+    //   vm.getSeries(value)
+    // })
   }
 }
 </script>

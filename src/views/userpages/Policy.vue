@@ -2,7 +2,7 @@
   <div>
     <div class="row mt-4">
       <div class="col-md-10 mr-auto ml-auto indexCard">
-        <div class="card my-3 py-5 px-5">
+        <div class="card my-3 py-5 px-3">
           <h4 class="text-center">隱私政策</h4>
           <hr>
           <p>本網站為本公司所經營。本公司十分重視您的隱私權保護，將依個人資料保護法及本隱私權政策蒐集、處理及利用您的個人資料，並提供您對個人資料權利之行使與保護。若您不同意本隱私權政策之全部或部份者，請您停止使用本網站服務。</p>
@@ -46,3 +46,20 @@
     </div>
   </div>
 </template>
+<script>
+
+export default {
+  components: {
+
+  },
+  data () {
+    return {
+
+    }
+  },
+  created () {
+    const vm = this
+    vm.$bus.$emit('title:push', '隱私政策')
+  }
+}
+</script>
